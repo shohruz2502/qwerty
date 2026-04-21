@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <title>Худжанд | Гид по городу</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f8f8f8;
+        color: #252525;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+      :root {
+        --graphite: #313131;
+        --blue: #ffad0c;
+        --white-soft: #ffffff;
+      }
+      h1 {
+        font-size: clamp(2rem, 7vw, 3.2rem);
+        color: var(--graphite);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
+        color: var(--graphite);
+        margin-bottom: 1.2rem;
+        position: relative;
+        display: inline-block;
+      }
+      h2:after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--blue);
+        border-radius: 4px;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      .logo {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--blue);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .logo span {
+        color: var(--graphite);
+        background: var(--blue);
+        padding: 0.2rem 0.6rem;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        margin-left: 4px;
+        font-weight: 600;
+      }
+      .menu-toggle {
+        display: none;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--blue);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: white;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: 0.2s;
+      }
+      .menu-toggle:active {
+        transform: scale(0.95);
+      }
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      .nav-item {
+        position: static;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        transition: 0.2s;
+        font-size: 1rem;
+        white-space: nowrap;
+        cursor: pointer;
+        padding: 0.5rem 0;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .nav-links a:hover {
+        color: var(--blue);
+      }
+      .nav-links .city-btn {
+        background: transparent;
+        backdrop-filter: blur(8px);
+        color: white;
+        padding: 0.5rem 1.4rem;
+        border-radius: 50px;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        white-space: nowrap;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease;
+      }
+      .nav-links .city-btn:hover {
+        background: rgba(255, 173, 12, 0.2);
+        border-color: var(--blue);
+        color: var(--blue);
+        text-shadow: none;
+      }
+      .lang-menu-container {
+        position: relative;
+        display: inline-block;
+      }
+      .lang-trigger {
+        background: transparent;
+        backdrop-filter: blur(8px);
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .lang-trigger i {
+        font-size: 0.9rem;
+      }
+      .lang-trigger:hover {
+        background: rgba(255, 173, 12, 0.2);
+        border-color: var(--blue);
+        color: var(--blue);
+        text-shadow: none;
+      }
+      .lang-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        background: var(--graphite);
+        backdrop-filter: blur(12px);
+        background-color: rgba(49, 49, 49, 0.95);
+        border-radius: 20px;
+        padding: 0.6rem 0;
+        min-width: 180px;
+        border: 1px solid var(--blue);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.25s ease, visibility 0.25s ease,
+          transform 0.25s ease;
+        z-index: 1100;
+      }
+      .lang-menu-container:hover .lang-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .lang-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0.7rem 1.2rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      .lang-item:hover {
+        background: rgba(255, 173, 12, 0.25);
+        color: var(--blue);
+      }
+      .lang-item img {
+        width: 24px;
+        height: 18px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .header-modal-wrapper {
+        position: relative;
+        z-index: 900;
+        margin: 0 1.5rem;
+      }
+      .header-modal {
+        background: linear-gradient(135deg, var(--graphite) 0%, #1a1a1a 100%);
+        border-radius: 30px;
+        padding: 2rem;
+        margin-top: 60px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        color: white;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+        border: 1px solid rgba(255, 173, 12, 0.3);
+      }
+      .header-modal.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .modal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      .modal-card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 173, 12, 0.2);
+        cursor: pointer;
+      }
+      .modal-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 30px rgba(255, 173, 12, 0.15);
+        border-color: var(--blue);
+      }
+      .card-image {
+        height: 275px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+      .card-image::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60%;
+        background: linear-gradient(to top, rgba(49, 49, 49, 0.9), transparent);
+      }
+      .card-content {
+        padding: 1rem;
+      }
+      .card-title {
+        color: var(--blue);
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .card-title i {
+        font-size: 1.3rem;
+      }
+      .card-description {
+        color: #d0d0d0;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+      .card-items {
+        list-style: none;
+      }
+      .card-items li {
+        margin-bottom: 0.5rem;
+        padding: 0.4rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 0.9rem;
+        color: #e8e8e8;
+        border-bottom: 1px dashed rgba(255, 173, 12, 0.2);
+        transition: all 0.2s ease;
+      }
+      .card-items li:hover {
+        color: var(--blue);
+        transform: translateX(5px);
+      }
+      .card-items li i {
+        color: var(--blue);
+        width: 24px;
+        font-size: 1rem;
+      }
+      .mobile-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 85%;
+        max-width: 340px;
+        height: 100vh;
+        background: linear-gradient(180deg, var(--graphite) 0%, #1f1f1f 100%);
+        z-index: 2000;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        display: flex;
+        flex-direction: column;
+        box-shadow: 4px 0 25px rgba(0, 0, 0, 0.4);
+      }
+      .mobile-sidebar.open {
+        transform: translateX(0);
+      }
+      .mobile-sidebar-header {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1.5rem 1.2rem;
+        border-bottom: 2px solid var(--blue);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+      }
+      .mobile-sidebar-header h3 {
+        color: var(--blue);
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin: 0;
+      }
+      .mobile-close {
+        background: var(--blue);
+        border: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        color: var(--graphite);
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s;
+      }
+      .mobile-sidebar-content {
+        padding: 1rem 1.2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .mobile-nav-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(255, 173, 12, 0.15);
+        border-radius: 12px;
+      }
+      .mobile-nav-item:hover {
+        background: rgba(255, 173, 12, 0.1);
+      }
+      .mobile-nav-item i {
+        font-size: 1.4rem;
+        color: var(--blue);
+        width: 36px;
+        margin-right: 12px;
+      }
+      .mobile-nav-item span {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: white;
+      }
+      .mobile-lang-section {
+        margin-top: auto;
+        padding-top: 1.5rem;
+        border-top: 2px solid rgba(255, 173, 12, 0.3);
+        margin-bottom: 0.5rem;
+      }
+      .mobile-lang-title {
+        color: var(--blue);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0 0.5rem;
+        font-weight: 600;
+      }
+      .mobile-lang-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .mobile-lang-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0.8rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 173, 12, 0.2);
+      }
+      .mobile-lang-item:hover {
+        background: rgba(255, 173, 12, 0.15);
+        border-color: var(--blue);
+      }
+      .mobile-lang-item img {
+        width: 28px;
+        height: 20px;
+        border-radius: 4px;
+        object-fit: cover;
+      }
+      .mobile-lang-item span {
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        flex: 1;
+      }
+      .city-hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-image: url("https://avatars.mds.yandex.net/i?id=1841f683b89b21be3122b9d047b10553142ba685-12827323-images-thumbs&n=13");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+      }
+      .city-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+      .hero-text {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 2rem;
+      }
+      .hero-text h1 {
+        color: white;
+        margin-bottom: 1rem;
+      }
+      .hero-text h1 span {
+        color: var(--blue);
+      }
+      .hero-text p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 1rem 0;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 2rem;
+        margin: 2rem 0;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero-stats div span:first-child {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .btn-primary {
+        background: var(--blue);
+        color: var(--graphite);
+        padding: 0.7rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        border: 2px solid var(--blue);
+        font-size: 0.9rem;
+      }
+      .btn-primary:hover {
+        background: transparent;
+        color: white;
+      }
+      .btn-outline {
+        border: 2px solid white;
+        color: white;
+        padding: 0.7rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        background: transparent;
+      }
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0 3rem;
+      }
+      .news-card {
+        background: #fff;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 12px 28px -12px rgba(19, 19, 19, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 1;
+        transform: translateY(0);
+        cursor: pointer;
+      }
+      .news-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 35px -12px rgba(19, 19, 19, 0.3);
+      }
+      .news-card-img {
+        height: 240px;
+        background-size: cover;
+        background-position: center;
+      }
+      .news-card-content {
+        padding: 1.5rem;
+      }
+      .news-card-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 0.8rem;
+        color: var(--graphite);
+      }
+      .news-card-content p {
+        font-size: 1rem;
+        color: #666;
+        line-height: 1.5;
+      }
+      .news-tag {
+        background: var(--blue);
+        color: var(--graphite);
+        padding: 0.3rem 1rem;
+        border-radius: 40px;
+        font-size: 0.85rem;
+        display: inline-block;
+        margin-top: 1rem;
+        font-weight: 600;
+      }
+      .map-section {
+        margin: 3rem 1rem;
+        background: white;
+        border-radius: 40px;
+        padding: 1.5rem;
+        box-shadow: 0 25px 40px -20px rgba(37, 37, 37, 0.2);
+        opacity: 1;
+        transform: translateX(0);
+      }
+      #yandex-map {
+        width: 100%;
+        height: 400px;
+        border-radius: 30px;
+        overflow: hidden;
+      }
+      .nearby-places {
+        margin-top: 1.5rem;
+        background: var(--graphite);
+        border-radius: 30px;
+        padding: 1.2rem;
+        color: white;
+      }
+      .poi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.8rem;
+        margin-top: 0.8rem;
+      }
+      .poi-item {
+        background: white;
+        border-radius: 25px;
+        padding: 0.7rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        cursor: pointer;
+        font-size: 0.85rem;
+        color: var(--graphite);
+        transition: all 0.3s ease;
+      }
+      .poi-item:hover {
+        background: var(--blue);
+        color: white;
+        transform: translateX(5px);
+      }
+      .places-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+      .place-card {
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 1;
+        transform: translateX(0);
+        cursor: pointer;
+      }
+      .place-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+      }
+      .place-card-img {
+        height: 252px;
+        background-size: cover;
+        background-position: center;
+      }
+      .place-card-content {
+        padding: 1.5rem;
+      }
+      .place-card-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        color: var(--graphite);
+      }
+      .place-card-content p {
+        font-size: 1rem;
+        color: #666;
+      }
+      .footer {
+        background: var(--graphite);
+        color: white;
+        border-radius: 40px 40px 0 0;
+        padding: 2rem 1.5rem 1.2rem;
+        margin-top: 2rem;
+        border-top: 4px solid var(--blue);
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (min-width: 901px) {
+        .mobile-sidebar {
+          display: none;
+        }
+        .nav-links {
+          display: flex;
+        }
+      }
+      @media (max-width: 900px) {
+        .navbar {
+          position: fixed;
+          background: rgba(49, 49, 49, 0.9);
+          backdrop-filter: blur(10px);
+          padding: 0.6rem 1rem;
+        }
+        .menu-toggle {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+        .header-modal-wrapper {
+          display: none;
+        }
+        .city-hero {
+          height: 70vh;
+          min-height: 500px;
+          background-attachment: scroll;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo">Khujand<span>guide</span></div>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links">
+        <div class="nav-item" data-modal="sights">
+          <a data-i18n="nav.sights">Достопримечательности</a>
+        </div>
+        <div class="nav-item" data-modal="events">
+          <a data-i18n="nav.events">События</a>
+        </div>
+        <div class="nav-item" data-modal="plan">
+          <a data-i18n="nav.plan">Спланировать поездку</a>
+        </div>
+        <div class="nav-item">
+          <a href="#карта" class="city-btn" data-i18n="nav.map">Карта города</a>
+        </div>
+        <div class="lang-menu-container">
+          <div class="lang-trigger">
+            <i class="fas fa-globe"></i><span data-i18n="lang.label">Язык</span
+            ><i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="lang-dropdown">
+            <div class="lang-item" data-lang="ru">
+              <img src="https://flagicons.lipis.dev/flags/4x3/ru.svg" /><span
+                >Русский</span
+              >
+            </div>
+            <div class="lang-item" data-lang="en">
+              <img src="https://flagicons.lipis.dev/flags/4x3/us.svg" /><span
+                >English</span
+              >
+            </div>
+            <div class="lang-item" data-lang="tj">
+              <img src="https://flagicons.lipis.dev/flags/4x3/tj.svg" /><span
+                >Тоҷикӣ</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="mobileSidebar" class="mobile-sidebar">
+      <div class="mobile-sidebar-header">
+        <h3>
+          <i class="fas fa-map-marked-alt"></i
+          ><span data-i18n="mobile.sidebar.menu">Меню</span>
+        </h3>
+        <button class="mobile-close" id="closeSidebarBtn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="mobile-sidebar-content">
+        <div class="mobile-nav-item" data-mobile-page="sights-page">
+          <i class="fas fa-landmark"></i
+          ><span data-i18n="nav.sights">Достопримечательности</span>
+        </div>
+        <div class="mobile-nav-item" data-mobile-page="events-page">
+          <i class="fas fa-calendar-alt"></i
+          ><span data-i18n="nav.events">События</span>
+        </div>
+        <div class="mobile-nav-item" data-mobile-page="plan-page">
+          <i class="fas fa-suitcase"></i
+          ><span data-i18n="nav.plan">Спланировать поездку</span>
+        </div>
+        <div class="mobile-nav-item" data-scroll-to="карта">
+          <i class="fas fa-map"></i
+          ><span data-i18n="nav.map">Карта города</span>
+        </div>
+        <div class="mobile-lang-section">
+          <div class="mobile-lang-title">
+            <i class="fas fa-globe"></i><span data-i18n="lang.label">Язык</span>
+          </div>
+          <div class="mobile-lang-buttons">
+            <div class="mobile-lang-item" data-lang="ru">
+              <img src="https://flagicons.lipis.dev/flags/4x3/ru.svg" /><span
+                >Русский</span
+              >
+            </div>
+            <div class="mobile-lang-item" data-lang="en">
+              <img src="https://flagicons.lipis.dev/flags/4x3/us.svg" /><span
+                >English</span
+              >
+            </div>
+            <div class="mobile-lang-item" data-lang="tj">
+              <img src="https://flagicons.lipis.dev/flags/4x3/tj.svg" /><span
+                >Тоҷикӣ</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-modal-wrapper">
+      <div class="header-modal" id="modal-sights">
+        <div class="modal-grid">
+          <div class="modal-card" data-link="dost.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://tour.tj/upload/iblock/eb7/icflrp2yzsqcczmlh869hzvr8mvf69z6.jpg');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-star"></i
+                ><span data-i18n="modal.sights.title1"
+                  >Популярные достопримечательности</span
+                >
+              </div>
+              <div class="card-description" data-i18n="modal.sights.desc1">
+                Главные места, которые нельзя пропустить в Худжанде
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-mosque"></i
+                  ><span data-i18n="modal.sights.item1"
+                    >Мечеть-мавзолей Шейха Муслихиддина</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-fort"></i
+                  ><span data-i18n="modal.sights.item2">Цитадель Худжанда</span>
+                </li>
+                <li>
+                  <i class="fas fa-archaeology"></i
+                  ><span data-i18n="modal.sights.item3">Древнее городище</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-card" data-link="Kulture sites.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://eurasia.travel/wp-content/uploads/2024/09/Khujdat-fortress-2.jpg');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-palette"></i
+                ><span data-i18n="modal.sights.title2">Культурные места</span>
+              </div>
+              <div class="card-description" data-i18n="modal.sights.desc2">
+                Музеи, театры и творческие пространства города
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-museum"></i
+                  ><span data-i18n="modal.sights.item4"
+                    >Историко-краеведческий музей</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-feather"></i
+                  ><span data-i18n="modal.sights.item5"
+                    >Дом-музей Камола Худжанди</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-music"></i
+                  ><span data-i18n="modal.sights.item6"
+                    >Театр имени Камола Худжанди</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-card" data-link="Historical sites.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://avatars.mds.yandex.net/i?id=1564c24e7052c499f03a977af5034cff73ea9912-4474939-images-thumbs&n=13');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-history"></i
+                ><span data-i18n="modal.sights.title3">Исторические места</span>
+              </div>
+              <div class="card-description" data-i18n="modal.sights.desc3">
+                Памятники древности и архитектуры
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-church"></i
+                  ><span data-i18n="modal.sights.item7"
+                    >Мечеть Масджиди-Джами</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-water"></i
+                  ><span data-i18n="modal.sights.item8"
+                    >Набережная Сырдарьи</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-archaeology"></i
+                  ><span data-i18n="modal.sights.item9"
+                    >Археологический парк</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-modal" id="modal-events">
+        <div class="modal-grid">
+          <div class="modal-card" data-link="what's new.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://avatars.mds.yandex.net/i?id=1060a6f986e61249476081ef11f8a5a4_l-4576399-images-thumbs&n=13');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-fire"></i
+                ><span data-i18n="modal.events.title1"
+                  >Что нового в городе</span
+                >
+              </div>
+              <div class="card-description" data-i18n="modal.events.desc1">
+                Свежие события и открытия
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-store"></i
+                  ><span data-i18n="modal.events.item1"
+                    >Открытие базара "Панджшанбе"</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-tree"></i
+                  ><span data-i18n="modal.events.item2"
+                    >Новый арт-парк у озера</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-utensils"></i
+                  ><span data-i18n="modal.events.item3"
+                    >Гастрофестиваль в выходные</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-card" data-link="events.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://avatars.mds.yandex.net/get-altay/11398069/2a00000190b16a35888a51350950c16e1b1e/orig');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-music"></i
+                ><span data-i18n="modal.events.title2"
+                  >Ближайшие мероприятия</span
+                >
+              </div>
+              <div class="card-description" data-i18n="modal.events.desc2">
+                Концерты, выставки, фестивали
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-concert"></i
+                  ><span data-i18n="modal.events.item4"
+                    >Концерт национальной музыки</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-palette"></i
+                  ><span data-i18n="modal.events.item5"
+                    >Выставка современных художников</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-running"></i
+                  ><span data-i18n="modal.events.item6">Городской марафон</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-card" data-link="event.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://avatars.mds.yandex.net/i?id=67900fe995567d1e87a7db225e29152ecf620f18-5221285-images-thumbs&n=13');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-clock"></i
+                ><span data-i18n="modal.events.title3">Постоянные события</span>
+              </div>
+              <div class="card-description" data-i18n="modal.events.desc3">
+                Регулярные мероприятия для жителей и гостей
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-museum"></i
+                  ><span data-i18n="modal.events.item7"
+                    >Экскурсии по музеям каждую субботу</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-children"></i
+                  ><span data-i18n="modal.events.item8"
+                    >Детские мастер-классы</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-market"></i
+                  ><span data-i18n="modal.events.item9"
+                    >Ярмарка ремесленников</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-modal" id="modal-plan">
+        <div class="modal-grid">
+          <div class="modal-card" data-link="residence.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1974&auto=format&fit=crop');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-hotel"></i
+                ><span data-i18n="modal.plan.title1">Проживание</span>
+              </div>
+              <div class="card-description" data-i18n="modal.plan.desc1">
+                Где остановиться в Худжанде
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-bed"></i
+                  ><span data-i18n="modal.plan.item1">Забронировать отель</span>
+                </li>
+                <li>
+                  <i class="fas fa-home"></i
+                  ><span data-i18n="modal.plan.item2"
+                    >Апартаменты и гостевые дома</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-campground"></i
+                  ><span data-i18n="modal.plan.item3">Хостелы</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-card" data-link="turist sites.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://avatars.mds.yandex.net/i?id=6778dcb75936b6ca0d8a12a11e6a7cf9_l-4334445-images-thumbs&n=13');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-umbrella-beach"></i
+                ><span data-i18n="modal.plan.title2">Туристические места</span>
+              </div>
+              <div class="card-description" data-i18n="modal.plan.desc2">
+                Что посмотреть и чем заняться
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-mountain"></i
+                  ><span data-i18n="modal.plan.item4">Экскурсии по горам</span>
+                </li>
+                <li>
+                  <i class="fas fa-water"></i
+                  ><span data-i18n="modal.plan.item5"
+                    >Прогулки по набережной</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-tree"></i
+                  ><span data-i18n="modal.plan.item6">Парки и зоны отдыха</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-card" data-link="Moving.html">
+            <div
+              class="card-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1974&auto=format&fit=crop');
+              "
+            ></div>
+            <div class="card-content">
+              <div class="card-title">
+                <i class="fas fa-car"></i
+                ><span data-i18n="modal.plan.title3"
+                  >Передвижение по городу</span
+                >
+              </div>
+              <div class="card-description" data-i18n="modal.plan.desc3">
+                Как удобно перемещаться по Худжанду
+              </div>
+              <ul class="card-items">
+                <li>
+                  <i class="fas fa-bus"></i
+                  ><span data-i18n="modal.plan.item7"
+                    >Общественный транспорт</span
+                  >
+                </li>
+                <li>
+                  <i class="fas fa-taxi"></i
+                  ><span data-i18n="modal.plan.item8">Такси и трансферы</span>
+                </li>
+                <li>
+                  <i class="fas fa-bicycle"></i
+                  ><span data-i18n="modal.plan.item9">Аренда велосипедов</span>
+                </li>
+                <li>
+                  <i class="fas fa-walking"></i
+                  ><span data-i18n="modal.plan.item10">Пешие маршруты</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="city-hero">
+      <div class="hero-text">
+        <h1>
+          <span data-i18n="hero.welcome">Добро пожаловать</span><br /><span
+            data-i18n="hero.full_line"
+            >в Худжанд</span
+          >
+        </h1>
+        <p data-i18n="hero.subtitle">
+          Древний город на Великом шёлковом пути. Современные пространства,
+          музеи, парки и яркая атмосфера.
+        </p>
+        <div
+          style="
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+          "
+        >
+          <a href="#" class="btn-primary" data-i18n="hero.btnExplore"
+            >Исследовать</a
+          ><a href="#" class="btn-outline" data-i18n="hero.btnRoutes"
+            >Маршруты</a
+          >
+        </div>
+        <div class="hero-stats">
+          <div>
+            <span>2500+</span> <span data-i18n="hero.stat1">Лет истории</span>
+          </div>
+          <div><span>12</span> <span data-i18n="hero.stat2">Музеев</span></div>
+          <div>
+            <span>30+</span> <span data-i18n="hero.stat3">Кафе и парков</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin: 2rem 1rem" id="новости">
+      <h2 data-i18n="news.title">📰 Что нового в Худжанде</h2>
+      <div class="news-grid" id="newsGrid"></div>
+    </div>
+    <div class="map-section" id="карта">
+      <h2 data-i18n="map.title">🗺️ Карта центра</h2>
+      <div id="yandex-map"></div>
+      <div class="nearby-places">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+          "
+        >
+          <i class="fas fa-location-dot"></i
+          ><span data-i18n="map.nearbyLabel"
+            >Рядом с центром (нажмите для перехода)</span
+          >
+        </div>
+        <div class="poi-grid" id="poiGrid"></div>
+      </div>
+    </div>
+    <div style="margin: 2rem 1rem" id="музеи">
+      <h2 data-i18n="museums.title">🏛️ Музеи Худжанда</h2>
+      <div class="places-grid" id="museumsGrid"></div>
+    </div>
+    <div style="margin: 2rem 1rem" id="места">
+      <h2 data-i18n="places.title">✨ Интересные места</h2>
+      <div class="places-grid" id="placesGrid"></div>
+    </div>
+    <div class="footer">
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+          justify-content: space-between;
+        "
+      >
+        <div>
+          <div class="logo" style="color: var(--blue)">
+            Худжанд<span style="background: var(--blue); color: var(--graphite)"
+              >guide</span
+            >
+          </div>
+          <p style="color: white; font-size: 0.8rem" data-i18n="footer.tagline">
+            Городской гид
+          </p>
+        </div>
+        <div>
+          <h4
+            style="color: var(--blue); font-size: 1rem"
+            data-i18n="footer.contacts"
+          >
+            Контакты
+          </h4>
+          <p style="color: white; font-size: 0.8rem">info@khujand.tj</p>
+        </div>
+        <div>
+          <h4
+            style="color: var(--blue); font-size: 1rem"
+            data-i18n="footer.sections"
+          >
+            Разделы
+          </h4>
+          <p>
+            <a
+              href="#"
+              style="color: var(--blue); font-size: 0.8rem"
+              data-i18n="footer.newsLink"
+              >Новости</a
+            >
+            ·
+            <a
+              href="#"
+              style="color: var(--blue)"
+              data-i18n="footer.museumsLink"
+              >Музеи</a
+            >
+            ·
+            <a href="#" style="color: var(--blue)" data-i18n="footer.mapLink"
+              >Карта</a
+            >
+          </p>
+          <a href="#" style="color: var(--blue)" data-i18n="footer.credit"
+            >Сделано в FCS-IT</a
+          >
+        </div>
+      </div>
+      <div
+        style="
+          text-align: center;
+          margin-top: 1.5rem;
+          opacity: 0.8;
+          font-size: 0.7rem;
+        "
+      >
+        © 2026 — <span data-i18n="footer.copyright">Худжанд</span>
+      </div>
+    </div>
+    <script>
+      const translations = {
+        ru: {
+          "nav.sights": "Достопримечательности",
+          "nav.events": "События",
+          "nav.plan": "Спланировать поездку",
+          "nav.map": "Карта города",
+          "lang.label": "Язык",
+          "hero.welcome": "Добро пожаловать",
+          "hero.full_line": "в Худжанд",
+          "hero.subtitle":
+            "Древний город на Великом шёлковом пути. Современные пространства, музеи, парки и яркая атмосфера.",
+          "hero.btnExplore": "Исследовать",
+          "hero.btnRoutes": "Маршруты",
+          "hero.stat1": "Лет истории",
+          "hero.stat2": "Музеев",
+          "hero.stat3": "Кафе и парков",
+          "news.title": "📰 Что нового в Худжанде",
+          "news.item1.title": 'Открытие базара "Панджшанбе"',
+          "news.item1.desc":
+            "Обновлённая территория, ремесленные лавки и фуд-корт с национальной кухней.",
+          "news.item1.tag": "Только что",
+          "news.item2.title": 'Новый арт-парк "Комсомольское озеро"',
+          "news.item2.desc":
+            "Вело-дорожки, современные скульптуры, прокат лодок и зоны для пикника.",
+          "news.item3.title": "Музей археологии",
+          "news.item3.desc":
+            'Новая экспозиция "Древний Худжанд" с интерактивными стендами.',
+          "map.title": "🗺️ Карта центра",
+          "map.nearbyLabel": "Рядом с центром (нажмите для перехода)",
+          "map.poi1": "Краеведческий музей",
+          "map.poi2": "Музей фортификации",
+          "map.poi3": 'Ресторан "Согдиана"',
+          "map.poi4": "Городской парк",
+          "museums.title": "🏛️ Музеи Худжанда",
+          "museums.item1.title": "Историко-краеведческий музей",
+          "museums.item1.desc":
+            "Артефакты эпохи кушанов, древняя керамика и уникальные экспонаты.",
+          "museums.item2.title": "Музей фортификации",
+          "museums.item2.desc":
+            "Цитадель Худжанда, крепостные стены и история оборонительных сооружений.",
+          "museums.item3.title": "Дом-музей Камола Худжанди",
+          "museums.item3.desc": "Поэт и мыслитель, рукописи и восточный сад.",
+          "places.title": "✨ Интересные места",
+          "places.item1.title": "Дворец культуры",
+          "places.item1.desc": "Центр культурной жизни города.",
+          "places.item2.title": "Набережная Сырдарьи",
+          "places.item2.desc": "Прогулочная зона, вид на реку, аттракционы.",
+          "places.item3.title": "Археологический парк",
+          "places.item3.desc":
+            "Раскопки под открытым небом, археологический парк.",
+          "places.item4.title": "Древнее городище в Панджикент",
+          "places.item5.title": "Туры на 7 озер",
+          "places.item6.desc": "Альпинистская база Артуч",
+          "places.item7.title": "Шахристан",
+          "places.item7.desc": "1 дневный туры в Шахристан",
+          "footer.tagline": "Городской гид",
+          "footer.contacts": "Контакты",
+          "footer.sections": "Разделы",
+          "footer.newsLink": "Новости",
+          "footer.museumsLink": "Музеи",
+          "footer.mapLink": "Карта",
+          "footer.credit": "Сделано в FCS-IT",
+          "footer.copyright": "Худжанд",
+          "mobile.sidebar.menu": "Меню",
+          "modal.sights.title1": "Популярные достопримечательности",
+          "modal.sights.desc1":
+            "Главные места, которые нельзя пропустить в Худжанде",
+          "modal.sights.item1": "Мечеть-мавзолей Шейха Муслихиддина",
+          "modal.sights.item2": "Цитадель Худжанда",
+          "modal.sights.item3": "Древнее городище",
+          "modal.sights.title2": "Культурные места",
+          "modal.sights.desc2":
+            "Музеи, театры и творческие пространства города",
+          "modal.sights.item4": "Историко-краеведческий музей",
+          "modal.sights.item5": "Дом-музей Камола Худжанди",
+          "modal.sights.item6": "Театр имени Камола Худжанди",
+          "modal.sights.title3": "Исторические места",
+          "modal.sights.desc3": "Памятники древности и архитектуры",
+          "modal.sights.item7": "Мечеть Масджиди-Джами",
+          "modal.sights.item8": "Набережная Сырдарьи",
+          "modal.sights.item9": "Археологический парк",
+          "modal.events.title1": "Что нового в городе",
+          "modal.events.desc1": "Свежие события и открытия",
+          "modal.events.item1": 'Открытие базара "Панджшанбе"',
+          "modal.events.item2": "Новый арт-парк у озера",
+          "modal.events.item3": "Гастрофестиваль в выходные",
+          "modal.events.title2": "Ближайшие мероприятия",
+          "modal.events.desc2": "Концерты, выставки, фестивали",
+          "modal.events.item4": "Концерт национальной музыки",
+          "modal.events.item5": "Выставка современных художников",
+          "modal.events.item6": "Городской марафон",
+          "modal.events.title3": "Постоянные события",
+          "modal.events.desc3": "Регулярные мероприятия для жителей и гостей",
+          "modal.events.item7": "Экскурсии по музеям каждую субботу",
+          "modal.events.item8": "Детские мастер-классы",
+          "modal.events.item9": "Ярмарка ремесленников",
+          "modal.plan.title1": "Проживание",
+          "modal.plan.desc1": "Где остановиться в Худжанде",
+          "modal.plan.item1": "Забронировать отель",
+          "modal.plan.item2": "Апартаменты и гостевые дома",
+          "modal.plan.item3": "Хостелы",
+          "modal.plan.title2": "Туристические места",
+          "modal.plan.desc2": "Что посмотреть и чем заняться",
+          "modal.plan.item4": "Экскурсии по горам",
+          "modal.plan.item5": "Прогулки по набережной",
+          "modal.plan.item6": "Парки и зоны отдыха",
+          "modal.plan.title3": "Передвижение по городу",
+          "modal.plan.desc3": "Как удобно перемещаться по Худжанду",
+          "modal.plan.item7": "Общественный транспорт",
+          "modal.plan.item8": "Такси и трансферы",
+          "modal.plan.item9": "Аренда велосипедов",
+          "modal.plan.item10": "Пешие маршруты",
+        },
+        en: {
+          "nav.sights": "Sights",
+          "nav.events": "Events",
+          "nav.plan": "Plan a trip",
+          "nav.map": "City map",
+          "lang.label": "Language",
+          "hero.welcome": "Welcome",
+          "hero.full_line": "to Khujand",
+          "hero.subtitle":
+            "Ancient city on the Great Silk Road. Modern spaces, museums, parks and vibrant atmosphere.",
+          "hero.btnExplore": "Explore",
+          "hero.btnRoutes": "Routes",
+          "hero.stat1": "Years of history",
+          "hero.stat2": "Museums",
+          "hero.stat3": "Cafes & Parks",
+          "news.title": "📰 What's new in Khujand",
+          "news.item1.title": "Opening of Panjshanbe Bazaar",
+          "news.item1.desc":
+            "Renovated area, craft shops and food court with national cuisine.",
+          "news.item1.tag": "Just now",
+          "news.item2.title": "New art park 'Komsomolskoye Lake'",
+          "news.item2.desc":
+            "Bike paths, modern sculptures, boat rental and picnic areas.",
+          "news.item3.title": "Archaeology Museum",
+          "news.item3.desc":
+            "New exhibition 'Ancient Khujand' with interactive stands.",
+          "map.title": "🗺️ City Center Map",
+          "map.nearbyLabel": "Near center (click to navigate)",
+          "map.poi1": "Local History Museum",
+          "map.poi2": "Fortification Museum",
+          "map.poi3": "Sogdiana Restaurant",
+          "map.poi4": "City Park",
+          "museums.title": "🏛️ Museums of Khujand",
+          "museums.item1.title": "Historical and Local Lore Museum",
+          "museums.item1.desc":
+            "Kushan era artifacts, ancient ceramics and unique exhibits.",
+          "museums.item2.title": "Fortification Museum",
+          "museums.item2.desc":
+            "Khujand Citadel, fortress walls and history of defensive structures.",
+          "museums.item3.title": "Kamol Khujandi House-Museum",
+          "museums.item3.desc":
+            "Poet and thinker, manuscripts and oriental garden.",
+          "places.title": "✨ Interesting Places",
+          "places.item1.title": "Palace of Culture",
+          "places.item1.desc": "Center of cultural life.",
+          "places.item2.title": "Syr Darya Embankment",
+          "places.item2.desc": "Walking area, river view, attractions.",
+          "places.item3.title": "Archaeological Park",
+          "places.item3.desc": "Open-air excavations, archaeological park.",
+          "places.item4.title": "Ancient settlement in Panjakent",
+          "places.item5.title": "Tours to the 7 Lakes",
+          "places.item6.desc": "Artuch Mountaineering Base",
+          "places.item7.title": "Shahristan",
+          "places.item7.desc": "One-day tour to Shakhristan",
+          "footer.tagline": "City Guide",
+          "footer.contacts": "Contacts",
+          "footer.sections": "Sections",
+          "footer.newsLink": "News",
+          "footer.museumsLink": "Museums",
+          "footer.mapLink": "Map",
+          "footer.credit": "Made in FCS-IT",
+          "footer.copyright": "Khujand",
+          "mobile.sidebar.menu": "Menu",
+          "modal.sights.title1": "Popular Sights",
+          "modal.sights.desc1": "Top places not to miss in Khujand",
+          "modal.sights.item1": "Sheikh Muslihiddin Mausoleum",
+          "modal.sights.item2": "Khujand Citadel",
+          "modal.sights.item3": "Ancient Settlement",
+          "modal.sights.title2": "Cultural Places",
+          "modal.sights.desc2": "Museums, theaters and creative spaces",
+          "modal.sights.item4": "Historical Museum",
+          "modal.sights.item5": "Kamol Khujandi House-Museum",
+          "modal.sights.item6": "Kamol Khujandi Theater",
+          "modal.sights.title3": "Historical Sites",
+          "modal.sights.desc3": "Ancient monuments and architecture",
+          "modal.sights.item7": "Masjidi Jami Mosque",
+          "modal.sights.item8": "Syr Darya Embankment",
+          "modal.sights.item9": "Archaeological Park",
+          "modal.events.title1": "What's new in the city",
+          "modal.events.desc1": "Fresh events and openings",
+          "modal.events.item1": "Opening of Panjshanbe Bazaar",
+          "modal.events.item2": "New art park by the lake",
+          "modal.events.item3": "Gastro festival on weekend",
+          "modal.events.title2": "Upcoming events",
+          "modal.events.desc2": "Concerts, exhibitions, festivals",
+          "modal.events.item4": "National music concert",
+          "modal.events.item5": "Contemporary art exhibition",
+          "modal.events.item6": "City marathon",
+          "modal.events.title3": "Regular events",
+          "modal.events.desc3": "Regular activities for residents and guests",
+          "modal.events.item7": "Museum tours every Saturday",
+          "modal.events.item8": "Children's workshops",
+          "modal.events.item9": "Crafts fair",
+          "modal.plan.title1": "Accommodation",
+          "modal.plan.desc1": "Where to stay in Khujand",
+          "modal.plan.item1": "Book a hotel",
+          "modal.plan.item2": "Apartments and guest houses",
+          "modal.plan.item3": "Hostels",
+          "modal.plan.title2": "Tourist places",
+          "modal.plan.desc2": "What to see and do",
+          "modal.plan.item4": "Mountain tours",
+          "modal.plan.item5": "Embankment walks",
+          "modal.plan.item6": "Parks and recreation areas",
+          "modal.plan.title3": "Getting around",
+          "modal.plan.desc3": "How to get around Khujand",
+          "modal.plan.item7": "Public transport",
+          "modal.plan.item8": "Taxis and transfers",
+          "modal.plan.item9": "Bike rental",
+          "modal.plan.item10": "Walking routes",
+        },
+        tj: {
+          "nav.sights": "Ҷойҳои диданӣ",
+          "nav.events": "Рӯйдодҳо",
+          "nav.plan": "Сафарро ба нақша гиред",
+          "nav.map": "Харитаи шаҳр",
+          "lang.label": "Забон",
+          "hero.welcome": "Хуш омадед",
+          "hero.full_line": "ба Хуҷанд",
+          "hero.subtitle":
+            "Шаҳри қадимӣ дар роҳи бузурги абрешим. Фазоҳои муосир, осорхонаҳо, боғҳо ва муҳити рангин.",
+          "hero.btnExplore": "Омӯхтан",
+          "hero.btnRoutes": "Масерҳо",
+          "hero.stat1": "Солҳои таърих",
+          "hero.stat2": "Осорхона",
+          "hero.stat3": "Кафе ва боғҳо",
+          "news.title": "📰 Дар Хуҷанд чӣ нав аст",
+          "news.item1.title": 'Ифтитоҳи бозори "Панҷшанбе"',
+          "news.item1.desc":
+            "Қаламрави навсозӣ, мағозаҳои ҳунарӣ ва фуд-корт бо таомҳои миллӣ.",
+          "news.item1.tag": "Ҳозир",
+          "news.item2.title": 'Боғи нави санъати "Кӯли Комсомол"',
+          "news.item2.desc":
+            "Роҳҳои велосипедронӣ, ҳайкалҳои муосир, иҷораи қаиқҳо ва минтақаҳои пикник.",
+          "news.item3.title": "Осорхонаи бостоншиносӣ",
+          "news.item3.desc":
+            'Намоиши нави "Хуҷанди Қадим" бо стендҳои интерактивӣ.',
+          "map.title": "🗺️ Харитаи марказ",
+          "map.nearbyLabel": "Дар наздикии марказ (барои гузариш клик кунед)",
+          "map.poi1": "Осорхонаи кишваршиносӣ",
+          "map.poi2": "Осорхонаи фортификатсия",
+          "map.poi3": 'Ресторани "Суғдиёна"',
+          "map.poi4": "Боғи шаҳр",
+          "museums.title": "🏛️ Осорхонаҳои Хуҷанд",
+          "museums.item1.title": "Осорхонаи таърихӣ-кишваршиносӣ",
+          "museums.item1.desc":
+            "Асбобҳои давраи Кушониён, сафолҳои қадимӣ ва экспонатҳои беназир.",
+          "museums.item2.title": "Осорхонаи фортификатсия",
+          "museums.item2.desc":
+            "Қалъаи Хуҷанд, деворҳои қалъа ва таърихи иншооти мудофиавӣ.",
+          "museums.item3.title": "Хона-осорхонаи Камоли Хуҷандӣ",
+          "museums.item3.desc":
+            "Шоир ва мутафаккир, дастнависҳо ва боғи шарқӣ.",
+          "places.title": "✨ Ҷойҳои ҷолиб",
+          "places.item1.title": "Қасри фарҳанг",
+          "places.item1.desc": "Маркази ҳаёти фарҳангии шаҳр.",
+          "places.item2.title": "Соҳили Сирдарё",
+          "places.item2.desc":
+            "Минтақаи сайругашт, манзараи дарё, аттракционҳо.",
+          "places.item3.title": "Боғи бостоншиносӣ",
+          "places.item3.desc": "Ҳафриёт дар ҳавои кушод, боғи археологӣ.",
+          "places.item4.title": "Посёлкаи бостонии Панчакент",
+          "places.item5.title": "Сафарҳо ба 7 кӯл",
+          "places.item6.desc": "Базаи туристии альпинистии Артуч",
+          "places.item7.title": "Shahristan",
+          "places.item7.desc": "One-day tour to Shakhristanн",
+          "footer.tagline": "Роҳнамои шаҳр",
+          "footer.contacts": "Тамос",
+          "footer.sections": "Бақшҳо",
+          "footer.newsLink": "Навигариҳо",
+          "footer.museumsLink": "Осорхонаҳо",
+          "footer.mapLink": "Харита",
+          "footer.credit": "Дар FCS-IT сохта шудааст",
+          "footer.copyright": "Хуҷанд",
+          "mobile.sidebar.menu": "Меню",
+          "modal.sights.title1": "Ҷойҳои машҳури диданӣ",
+          "modal.sights.desc1":
+            "Ҷойҳои асосӣ, ки дар Хуҷанд набояд аз даст дод",
+          "modal.sights.item1": "Мақбараи Шайх Муслиҳиддин",
+          "modal.sights.item2": "Қалъаи Хуҷанд",
+          "modal.sights.item3": "Шаҳристони қадим",
+          "modal.sights.title2": "Ҷойҳои фарҳангӣ",
+          "modal.sights.desc2": "Осорхонаҳо, театрҳо ва фазоҳои эҷодӣ",
+          "modal.sights.item4": "Осорхонаи таърихӣ-кишваршиносӣ",
+          "modal.sights.item5": "Хона-осорхонаи Камоли Хуҷандӣ",
+          "modal.sights.item6": "Театри ба номи Камоли Хуҷандӣ",
+          "modal.sights.title3": "Ҷойҳои таърихӣ",
+          "modal.sights.desc3": "Ёдгориҳои қадимӣ ва меъморӣ",
+          "modal.sights.item7": "Масҷиди Ҷомеъ",
+          "modal.sights.item8": "Соҳили Сирдарё",
+          "modal.sights.item9": "Боғи бостоншиносӣ",
+          "modal.events.title1": "Дар шаҳр чӣ нав аст",
+          "modal.events.desc1": "Рӯйдодҳои тоза ва кушоишҳо",
+          "modal.events.item1": 'Ифтитоҳи бозори "Панҷшанбе"',
+          "modal.events.item2": "Боғи нави санъат дар назди кӯл",
+          "modal.events.item3": "Ҷашни гастрономӣ дар рӯзҳои истироҳат",
+          "modal.events.title2": "Чорабиниҳои наздик",
+          "modal.events.desc2": "Консертҳо, намоишгоҳҳо, фестивалҳо",
+          "modal.events.item4": "Консерти мусиқии миллӣ",
+          "modal.events.item5": "Намоишгоҳи рассомони муосир",
+          "modal.events.item6": "Марафони шаҳрӣ",
+          "modal.events.title3": "Чорабиниҳои доимӣ",
+          "modal.events.desc3":
+            "Чорабиниҳои мунтазам барои сокинон ва меҳмонон",
+          "modal.events.item7": "Экскурсияҳои осорхонаҳо ҳар шанбе",
+          "modal.events.item8": "Мастер-классҳои кӯдакона",
+          "modal.events.item9": "Бозори ҳунармандон",
+          "modal.plan.title1": "Манзил",
+          "modal.plan.desc1": "Дар Хуҷанд куҷо мондан",
+          "modal.plan.item1": "Фармоиши меҳмонхона",
+          "modal.plan.item2": "Квартираҳо ва хонаҳои меҳмонӣ",
+          "modal.plan.item3": "Ҳостелҳо",
+          "modal.plan.title2": "Ҷойҳои сайёҳӣ",
+          "modal.plan.desc2": "Чиро дидан ва бо чӣ машғул шудан",
+          "modal.plan.item4": "Экскурсияҳои кӯҳӣ",
+          "modal.plan.item5": "Сайругашт дар соҳил",
+          "modal.plan.item6": "Боғҳо ва минтақаҳои истироҳат",
+          "modal.plan.title3": "Ҳаракат дар шаҳр",
+          "modal.plan.desc3": "Чӣ гуна дар Хуҷанд роҳат ҳаракат кардан",
+          "modal.plan.item7": "Нақлиёти умумӣ",
+          "modal.plan.item8": "Такси ва трансфер",
+          "modal.plan.item9": "Иҷораи велосипед",
+          "modal.plan.item10": "Масерҳои пиёда",
+        },
+      };
+      let currentLang = "ru";
+      function changeLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          let key = el.getAttribute("data-i18n");
+          if (translations[lang] && translations[lang][key]) {
+            if (el.tagName === "INPUT" || el.tagName === "TEXTAREA")
+              el.value = translations[lang][key];
+            else el.innerHTML = translations[lang][key];
+          }
+        });
+        localStorage.setItem("khujand_lang", lang);
+        renderAllCardsImmediately();
+        updatePoiTexts();
+        updateMapBalloons();
+      }
+      function renderAllCardsImmediately() {
+        const newsData = [
+          {
+            img: "https://avatars.mds.yandex.net/i?id=19f89f89dd5591601400a2bc3f5a7f2e3dff4d2a-5888104-images-thumbs&n=13",
+            titleKey: "news.item1.title",
+            descKey: "news.item1.desc",
+            tagKey: "news.item1.tag",
+            link: "oldcity.html",
+          },
+          {
+            img: "https://avatars.mds.yandex.net/i?id=9e94dfa8241a52f51423165c772a6aa3_l-4371822-images-thumbs&n=13",
+            titleKey: "news.item2.title",
+            descKey: "news.item2.desc",
+            link: "news-art-park.html",
+          },
+          {
+            img: "https://avatars.mds.yandex.net/i?id=fbd1997e780ef2cc4ac29a28d0ae148b_l-5480005-images-thumbs&n=13",
+            titleKey: "news.item3.title",
+            descKey: "news.item3.desc",
+            link: "news-archaeology.html",
+          },
+        ];
+        const museumsData = [
+          {
+            img: "https://avatars.mds.yandex.net/get-altay/13797017/2a00000192326b2e214874db5ceb4fc5c8e2/XXL_height",
+            titleKey: "museums.item1.title",
+            descKey: "museums.item1.desc",
+            link: "museum-history.html",
+          },
+          {
+            img: "https://avatars.mds.yandex.net/i?id=38faee40f5318e45ee9092f680f54569c231b303-6946611-images-thumbs&n=13",
+            titleKey: "museums.item2.title",
+            descKey: "museums.item2.desc",
+            link: "museum-fortification.html",
+          },
+          {
+            img: "https://avatars.mds.yandex.net/i?id=d5dba8fc849ae97a50a65f24ee2ccd4ac039189a-10995463-images-thumbs&n=13",
+            titleKey: "museums.item3.title",
+            descKey: "museums.item3.desc",
+            link: "museum-kamol.html",
+          },
+        ];
+        const placesData = [
+          {
+            img: "https://avatars.mds.yandex.net/i?id=d9471e74ca9bcf88f5675fd4acca36de106109d7-8529854-images-thumbs&n=13",
+            titleKey: "places.item1.title",
+            descKey: "places.item1.desc",
+            link: "culture.html",
+          },
+          {
+            img: "https://avatars.mds.yandex.net/i?id=57bc330993e993e9b1b4f46a2e0e7ee6_l-12439438-images-thumbs&n=13",
+            titleKey: "places.item2.title",
+            descKey: "places.item2.desc",
+            link: "place-embankment.html",
+          },
+          {
+            img: "https://www.vash-otdyh.by/images/Blog/Rossiya/Peterburg/Загадочные_крепости_Памира_и_сегодня_никто_целостно_не_изучает.jpg",
+            titleKey: "places.item3.title",
+            descKey: "places.item3.desc",
+            link: "archaeological-park.html",
+          },
+          {
+            img: "img/IMG_20260405_080257_629.jpg",
+            titleKey: "places.item4.title",
+            descKey: "places.item4.desc",
+            link: "oldcity.html",
+          },
+          {
+            img: "img/IMG_20260405_080300_052.jpg",
+            titleKey: "places.item5.title",
+            descKey: "places.item5.desc",
+            link: "seven-lakes.html",
+          },
+          {
+            img: "img/IMG_20260405_080304_139.jpg",
+            titleKey: "places.item6.title",
+            descKey: "places.item6.desc",
+            link: "artuch.html",
+          },
+          {
+            img: "img/IMG_20260405_080309_942.jpg",
+            titleKey: "places.item7.title",
+            descKey: "places.item7.desc",
+            link: "shahristan.html",
+          },
+          {
+            img: "img/IMG_20260405_080313_621.jpg",
+            titleKey: "places.item8.title",
+            descKey: "places.item8.desc",
+            link: "tour-place.html",
+          },
+          {
+            img: "img/IMG_20260405_080316_378.jpg",
+            titleKey: "places.item9.title",
+            descKey: "places.item9.desc",
+            link: "tour-place.html",
+          },
+          {
+            img: "img/IMG_20260405_080319_838.jpg",
+            titleKey: "places.item10.title",
+            descKey: "places.item10.desc",
+            link: "tour-place.html",
+          },
+          {
+            img: "img/IMG_20260405_080323_234.jpg",
+            titleKey: "places.item11.title",
+            descKey: "places.item11.desc",
+            link: "tour-place.html",
+          },
+          {
+            img: "img/IMG_20260405_080325_991.jpg",
+            titleKey: "places.item12.title",
+            descKey: "places.item12.desc",
+            link: "tour-place.html",
+          },
+        ];
+        function build(containerId, data, typeClass) {
+          let container = document.getElementById(containerId);
+          if (!container) return;
+          container.innerHTML = data
+            .map(
+              (item) =>
+                `<div class="${typeClass}-card" data-link="${
+                  item.link
+                }"><div class="${typeClass}-card-img" style="background-image:url('${
+                  item.img
+                }')"></div><div class="place-card-content"><h3 data-i18n="${
+                  item.titleKey
+                }">${
+                  translations[currentLang][item.titleKey] || ""
+                }</h3><p data-i18n="${item.descKey}">${
+                  translations[currentLang][item.descKey] || ""
+                }</p>${
+                  item.tagKey
+                    ? `<span class="news-tag" data-i18n="${item.tagKey}">${
+                        translations[currentLang][item.tagKey] || ""
+                      }</span>`
+                    : ""
+                }</div></div>`
+            )
+            .join("");
+          container.querySelectorAll("[data-i18n]").forEach((el) => {
+            let k = el.getAttribute("data-i18n");
+            if (translations[currentLang][k])
+              el.innerHTML = translations[currentLang][k];
+          });
+          container.querySelectorAll(`.${typeClass}-card`).forEach((card) => {
+            card.addEventListener("click", (e) => {
+              let link = card.getAttribute("data-link");
+              if (link && link !== "#") window.location.href = link;
+            });
+          });
+        }
+        build("newsGrid", newsData, "news");
+        build("museumsGrid", museumsData, "place");
+        build("placesGrid", placesData, "place");
+      }
+      function updatePoiTexts() {
+        document.querySelectorAll(".poi-item [data-i18n]").forEach((el) => {
+          let key = el.getAttribute("data-i18n");
+          if (translations[currentLang][key])
+            el.innerHTML = translations[currentLang][key];
+        });
+      }
+      function updateMapBalloons() {
+        if (window.myMap) {
+          window.myMap.geoObjects.each((go) => {
+            let hint = go.properties.get("hintContent");
+            for (let [key, val] of Object.entries(translations[currentLang])) {
+              if (val === hint || (hint && hint.includes(val))) {
+                go.properties.set({
+                  balloonContent: translations[currentLang][key],
+                  hintContent: translations[currentLang][key],
+                });
+                break;
+              }
+            }
+          });
+        }
+      }
+      function initLanguage() {
+        let saved = localStorage.getItem("khujand_lang");
+        if (saved && translations[saved]) changeLanguage(saved);
+        else changeLanguage("ru");
+      }
+      document
+        .querySelectorAll(".lang-item, .mobile-lang-item")
+        .forEach((btn) =>
+          btn.addEventListener("click", () => {
+            let l = btn.dataset.lang;
+            if (l) changeLanguage(l);
+            if (window.innerWidth <= 900) closeSidebar();
+          })
+        );
+      const sidebar = document.getElementById("mobileSidebar");
+      function openSidebar() {
+        sidebar.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeSidebar() {
+        sidebar.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      document
+        .getElementById("menuToggle")
+        ?.addEventListener("click", openSidebar);
+      document
+        .getElementById("closeSidebarBtn")
+        ?.addEventListener("click", closeSidebar);
+      document
+        .querySelectorAll(".mobile-nav-item[data-scroll-to]")
+        .forEach((item) =>
+          item.addEventListener("click", () => {
+            let target = item.dataset.scrollTo;
+            let el = document.getElementById(target);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+            closeSidebar();
+          })
+        );
+      let hoverTimeout;
+      document.querySelectorAll(".nav-item[data-modal]").forEach((item) => {
+        item.addEventListener("mouseenter", () => {
+          clearTimeout(hoverTimeout);
+          let modalId = item.dataset.modal;
+          let modal = document.getElementById(`modal-${modalId}`);
+          if (modal) {
+            document
+              .querySelectorAll(".header-modal")
+              .forEach((m) => m.classList.remove("show"));
+            modal.classList.add("show");
+          }
+        });
+        item.addEventListener("mouseleave", () => {
+          hoverTimeout = setTimeout(() => {
+            document
+              .querySelectorAll(".header-modal")
+              .forEach((m) => m.classList.remove("show"));
+          }, 200);
+        });
+      });
+      document.querySelectorAll(".header-modal").forEach((modal) => {
+        modal.addEventListener("mouseenter", () => clearTimeout(hoverTimeout));
+        modal.addEventListener("mouseleave", () => {
+          hoverTimeout = setTimeout(() => modal.classList.remove("show"), 200);
+        });
+      });
+      const poiData = [
+        { lat: 40.282, lon: 69.614, titleKey: "map.poi1" },
+        { lat: 40.285, lon: 69.619, titleKey: "map.poi2" },
+        { lat: 40.2815, lon: 69.6155, titleKey: "map.poi3" },
+        { lat: 40.279, lon: 69.62, titleKey: "map.poi4" },
+      ];
+      function buildPoi() {
+        let poiGrid = document.getElementById("poiGrid");
+        if (poiGrid) {
+          poiGrid.innerHTML = poiData
+            .map(
+              (p) =>
+                `<div class="poi-item" data-lat="${p.lat}" data-lon="${
+                  p.lon
+                }"><i class="fas fa-map-marker-alt"></i><span data-i18n="${
+                  p.titleKey
+                }">${translations[currentLang][p.titleKey] || ""}</span></div>`
+            )
+            .join("");
+          document.querySelectorAll(".poi-item").forEach((el) => {
+            el.addEventListener("click", function () {
+              let lat = parseFloat(this.dataset.lat),
+                lon = parseFloat(this.dataset.lon);
+              if (window.myMap && !isNaN(lat) && !isNaN(lon)) {
+                window.myMap.setCenter([lat, lon], 17);
+                window.myMap.geoObjects.each((go) => {
+                  if (go.geometry) {
+                    let c = go.geometry.getCoordinates();
+                    if (
+                      Math.abs(c[0] - lat) < 0.001 &&
+                      Math.abs(c[1] - lon) < 0.001
+                    )
+                      go.balloon.open();
+                  }
+                });
+              }
+            });
+          });
+        }
+      }
+      window.initMap = function () {
+        if (typeof ymaps !== "undefined") {
+          let myMap = new ymaps.Map(
+            "yandex-map",
+            {
+              center: [40.2833, 69.6167],
+              zoom: 15,
+              controls: [
+                "zoomControl",
+                "fullscreenControl",
+                "geolocationControl",
+              ],
+            },
+            { suppressMapOpenBlock: true, logo: false }
+          );
+          window.myMap = myMap;
+          poiData.forEach((p) => {
+            myMap.geoObjects.add(
+              new ymaps.Placemark(
+                [p.lat, p.lon],
+                {
+                  balloonContent: translations[currentLang][p.titleKey] || "",
+                  hintContent: translations[currentLang][p.titleKey] || "",
+                },
+                { preset: "islands#blueDotIcon", iconColor: "#ffad0c" }
+              )
+            );
+          });
+        }
+      };
+      document.querySelectorAll(".modal-card").forEach((card) => {
+        let link = card.getAttribute("data-link");
+        if (link && link !== "#") {
+          card.addEventListener("click", () => (window.location.href = link));
+          card.style.cursor = "pointer";
+        }
+      });
+      window.addEventListener("load", () => {
+        initLanguage();
+        buildPoi();
+        renderAllCardsImmediately();
+        if (typeof ymaps !== "undefined") {
+          ymaps.ready(initMap);
+        } else {
+          setTimeout(() => {
+            if (typeof ymaps !== "undefined") ymaps.ready(initMap);
+          }, 500);
+        }
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeSidebar();
+          document
+            .querySelectorAll(".header-modal")
+            .forEach((m) => m.classList.remove("show"));
+        }
+      });
+
+    </script>
+  </body>
+</html>
